@@ -121,6 +121,9 @@ window.onClientResume = function () {
 
 // Callback received whenever the Jio app is sent to background or brought to foreground
 document.addEventListener("visibilitychange", function() {
+
+	unityInstance.SendMessage('JioWrapperJS', 'onClientResume');
+	
     if (document.visibilityState === 'visible') {
        console.log("JioGames: App Visible");
     //    unityInstance.SendMessage('JioWrapperJS', 'onClientPause'); 
@@ -282,6 +285,7 @@ function callback_Banner(){
         console.log ("JioGames: onAdDuration "+placementId);
     };
 }
+
 
 
 
