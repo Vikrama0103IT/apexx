@@ -131,7 +131,8 @@ document.addEventListener("visibilitychange", function() {
     } else {  
        console.log("JioGames: App Hidden");
 // unityInstance.SendMessage('JioWrapperJS', 'ResumeGameSound');
-               unityInstance.SendMessage('JioWrapperJS', 'onClientResume');
+               //unityInstance.SendMessage('JioWrapperJS', 'onClientResume');
+		unityInstance.SendMessage('JioWrapperJS', 'onClientPause'); 
     }
 });
 
@@ -272,5 +273,6 @@ function callback_Banner(){
         console.log ("JioGames: onAdDuration "+placementId);
     };
 }
+
 
 
