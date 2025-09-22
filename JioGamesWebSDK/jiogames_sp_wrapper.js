@@ -16,7 +16,6 @@ function cacheAdMidRoll(adKeyId, source) {
     else{
         console.log("JioGames: cacheAdMidRoll() adKeyId : " + adKeyId + " source : " + source);
     }
-    window.onAdPrepared(adKeyId);
     if (window.DroidHandler) {
         window.DroidHandler.cacheAd(adKeyId, source);
     }
@@ -31,7 +30,6 @@ function showAdMidRoll(adKeyId, source) {
     else{
         console.log("JioGames: showAdMidRoll() adKeyId : " + adKeyId + " source : " + source);
     }
-    window.onAdClosed(adKeyId,false, false);
     if (window.DroidHandler) {
         window.DroidHandler.showAd(adKeyId, source);
     }
@@ -46,7 +44,6 @@ function cacheAdRewardedVideo(adKeyId, source) {
     else{
         console.log("JioGames: cacheAdRewardedVideo() adKeyId : " + adKeyId + " source : " + source);
     }
-    window.onAdPrepared(adKeyId);
     if (window.DroidHandler) {
         window.DroidHandler.cacheAdRewarded(adKeyId, source);    
     }
@@ -61,7 +58,6 @@ function showAdRewardedVideo(adKeyId, source) {
     else{
         console.log("JioGames: showAdRewardedVideo() adKeyId : " + adKeyId + " source : " + source);
     }
-    window.onAdClosed(adKeyId,true, true);
     if (window.DroidHandler) {
         window.DroidHandler.showAdRewarded(adKeyId, source);
     }
@@ -110,41 +106,23 @@ window.onUserProfileResponse = function(message)
 };
 
 window.onClientPause = function () {
-    // console.log("JioGames: onClientPause called");
-    // unityInstance.SendMessage('JioWrapperJS', 'onClientPause');  // Set the timescale to zero 
+    console.log("JioGames: onClientPause called");
+    unityInstance.SendMessage('JioWrapperJS', 'onClientPause');  // Set the timescale to zero 
 };
 
 window.onClientResume = function () {
-    // console.log("JioGames: onClientResume called");
-    // unityInstance.SendMessage('JioWrapperJS', 'onClientResume');  // Set the timescale to zero 
+    console.log("JioGames: onClientResume called");
+    unityInstance.SendMessage('JioWrapperJS', 'onClientResume');  // Set the timescale to zero 
 };
 
 // Callback received whenever the Jio app is sent to background or brought to foreground
 document.addEventListener("visibilitychange", function() {
-
-	unityInstance.SendMessage('JioWrapperJS', 'onClientResume');
-	
     if (document.visibilityState === 'visible') {
        console.log("JioGames: App Visible");
-    //    unityInstance.SendMessage('JioWrapperJS', 'onClientPause'); 
-            //   unityInstance.SendMessage('JioWrapperJS', 'PauseGameSound');
-    // unityInstance.SendMessage('JioWrapperJS', 'onClientPause'); 
-
-       
+       unityInstance.SendMessage('JioWrapperJS', 'ResumeGameSound');
     } else {  
        console.log("JioGames: App Hidden");
-// unityInstance.SendMessage('JioWrapperJS', 'ResumeGameSound');
-        setTimeout(function() {unityInstance.SendMessage('JioWrapperJS', 'onClientPause');}, 10000);
-
-		setTimeout(function() {unityInstance.SendMessage('JioWrapperJS', 'onClientResume');}, 10000);
-
-
-		setTimeout(function() {unityInstance.SendMessage('JioWrapperJS', 'PauseGameSound');}, 10000);
-
-		setTimeout(function() {unityInstance.SendMessage('JioWrapperJS', 'ResumeGameSound');}, 10000);
-		
-		
-		
+       unityInstance.SendMessage('JioWrapperJS', 'PauseGameSound');
     }
 });
 
@@ -285,8 +263,3 @@ function callback_Banner(){
         console.log ("JioGames: onAdDuration "+placementId);
     };
 }
-
-
-
-
-
