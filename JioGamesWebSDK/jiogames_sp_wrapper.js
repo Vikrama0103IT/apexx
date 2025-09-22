@@ -107,24 +107,18 @@ window.onUserProfileResponse = function(message)
 
 window.onClientPause = function () {
     console.log("JioGames: onClientPause called");
-    unityInstance.SendMessage('JioWrapperJS', 'onClientPause');  // Set the timescale to zero 
+    unityInstance.SendMessage('GameHandler', 'WEBGLWindowFocus', 0);
 };
 
 window.onClientResume = function () {
     console.log("JioGames: onClientResume called");
-    unityInstance.SendMessage('JioWrapperJS', 'onClientResume');  // Set the timescale to zero 
-};
-
-// Callback received whenever the Jio app is sent to background or brought to foreground
-document.addEventListener("visibilitychange", function() {
-    if (document.visibilityState === 'visible') {
-       console.log("JioGames: App Visible");
-       unityInstance.SendMessage('JioWrapperJS', 'ResumeGameSound');
-    } else {  
-       console.log("JioGames: App Hidden");
-       unityInstance.SendMessage('JioWrapperJS', 'PauseGameSound');
+    unityInstance.SendMessage('GameHandler', 'WEBGLWindowFocus', 1);
+    if (gratifyUser()) 
+    {
+        //call that method from here
+        GratifyReward();
     }
-});
+};
 
 
 console.log("JioGames: SDK initialize : 1.0.0");
@@ -263,3 +257,4 @@ function callback_Banner(){
         console.log ("JioGames: onAdDuration "+placementId);
     };
 }
+
